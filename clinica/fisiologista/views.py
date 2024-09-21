@@ -125,12 +125,12 @@ def profile_professional(request):
       is_professional = Fisioterapist.objects.filter(user=user).exists()
 
       if is_professional:
-            # Obtém a instância do Fisioterapist associado ao usuário
+
             fisioterapist = Fisioterapist.objects.get(user=user)
-            # Filtra agendamentos excluindo aqueles associados ao fisioterapist logado
+
             appointments = Appointment.objects.exclude(professional=fisioterapist)
       else:
-            # Se não for um profissional, não faz a filtragem
+
             appointments = Appointment.objects.all()
 
       return render(request, 'profile_professional.html', {'user': user, 'is_professional': is_professional, 'appointments': appointments})
