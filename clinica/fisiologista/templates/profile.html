@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #e6e6e6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #3eb33e;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        header .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1rem;
+        }
+        header .top-bar a:hover {
+            text-decoration: underline;
+        }
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        header .contact-info {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        header .profile-info {
+            margin-top: 10px;
+        }
+        header .profile-info img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #3eb33e;
+        }
+        p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        form {
+            margin-top: 30px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"], input[type="date"], input[type="time"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #3eb33e;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #3eb33e;
+            font-size: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        #unama img{
+          height: 58px;
+          width: 180px;
+        }
+
+        #headers {
+            display: flex;
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            align-items: center;     /* Centraliza o conteúdo verticalmente */
+            padding: 10px;
+            background-color: #f0f0f0;       /* Garante que o contêiner ocupe toda a largura disponível */
+            text-align: center
+        }
+
+
+        #headers a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+
+        #headers a:hover {
+            color: #007BFF;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        #prof {
+            height: 30px;
+            width: 30px;
+        }
+
+        #profileu{
+
+            justify-content: center;
+
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <a id="unama">
+                <img src="{% static 'images/unama_n.png' %}" alt="">
+            </a>
+            <div id="profileu" class="profile-info">
+                <img id="prof" src="{% static 'images/user.png' %}" alt="Profile Icon">
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+        <div class="contact-info">
+            <p>Contate-nos: (91) 99999-9999 | Email: contact@clinic.com</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>{% if is_professional %}
+            {% if user.gender == 'M' %}
+                Dr. {{ user.first_name }} {{ user.last_name }}
+            {% elif user.gender == 'F' %}
+                Dra. {{ user.first_name }} {{ user.last_name }}
+            {% elif user.gender == 'O' %}
+                Dr/Dra. {{ user.first_name }} {{ user.last_name }}
+            {% endif %}
+        {% else %}
+            Paciente {{ user.first_name }} {{ user.last_name }}
+        {% endif %}</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Telefone:</strong> {{ user.phone }}</p>
+
+        <h3>Agendamentos</h3>
+        <form action="{% url 'profile' %}" method="POST" class="form"> {% csrf_token %}
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="data" required>
+
+            <label for="time">Horário:</label>
+            <select id="time" name="time" required>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
+
+            <label for="specialty">Tipo de consultoria:</label>
+            <select id="specialty" name="tipo_tratamento" required>
+                <option value="ORTHO">Ortopédica</option>
+                <option value="NEURO">Neurológica</option>
+                <option value="CARDIO">Cardiopulmonar</option>
+                <option value="PEDIAT">Pediátrica</option>
+                <option value="GERIAT">Geriátrica</option>
+                <option value="SPORT">Desportiva</option>
+                <option value="OTHER">Outros</option>
+            </select>
+
+            <label for="reason">Descrição breve do sintomas do paciente:</label>
+            <textarea id="reason" name="reason" rows="4" required></textarea>
+
+            <button type="submit">Agendar</button>
+        </form>
+
+        <h3>Seus Agendamentos</h3>
+        <ul>
+            {% for appointment in appointments %}
+                <li>Data: {{ appointment.data }}, Horário: {{ appointment.time }}, Motivo: {{ appointment.resumo_problemas }}, Fisioterapeuta: {{ appointment.fisioterapist.user.username }}</li>
+            {% empty %}
+                <li>Nenhum agendamento ainda feito.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

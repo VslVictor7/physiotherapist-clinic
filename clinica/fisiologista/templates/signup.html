@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registration Form in HTML CSS</title>
+
+    <link rel="stylesheet" href="{% static 'css/style-registro.css' %}" />
+  </head>
+  <body>
+    <section class="container">
+      <header>Formulário de Registro</header>
+      <form action="{% url 'registro' %}" method="POST" class="form"> {% csrf_token %}
+
+        <div class="column">
+          <div class="input-box">
+            <label>Nome</label>
+            <input type="text" placeholder="Insira Nome" name="first_name" required />
+          </div>
+          <div class="input-box">
+            <label>Sobrenome</label>
+            <input type="text" placeholder="Insira Sobrenome" name="last_name" required />
+          </div>
+        </div>
+
+        <div class="input-box">
+          <label>Nome de Usuário</label>
+          <input type="text" id="username" placeholder="Insira nome de usuário" autocomplete="off" maxlength="40" name="username" required />
+        </div>
+
+        <div class="input-box">
+          <label>CPF</label>
+          <input type="text" id="CPF" placeholder="Insira CPF" autocomplete="off" maxlength="14" name="cpf" required />
+        </div>
+
+        <div class="input-box">
+          <label>Email</label>
+          <input type="email" placeholder="Insira Email" name="email" required />
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Senha</label>
+            <input type="password" placeholder="Insira Senha" maxlength="25" name="password" required />
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Número de Telefone</label>
+            <input id="telefone" type="tel" placeholder="Insira número" maxlength="15" name="cell" required />
+          </div>
+          <div class="input-box">
+            <label>Data de Nascimento</label>
+            <input type="date" placeholder="Insira Data de Nascimento" name="birth" required />
+          </div>
+        </div>
+        <div class="gender-box">
+          <h3>Gênero</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <input type="radio" id="check-male" name="gender" value="M" checked />
+              <label for="check-male">Masculino</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-female" name="gender" value="F" />
+              <label for="check-female">Feminino</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-other" name="gender" value="O" />
+              <label for="check-other">Prefiro não dizer</label>
+            </div>
+          </div>
+        </div>
+        <div class="input-box address">
+          <label>Endereço Residencial</label>
+          <div class="column">
+            <input type="text" placeholder="Endereço" name="adress" required />
+            <input id="CEP" type="text" placeholder="CEP" maxlength="9" name="cep" required />
+          </div>
+        </div>
+        <button type="submit" value="signup">Enviar</button>
+      </form>
+      <p id="loginredi">Já possui conta? &nbsp;<a href="{% url 'login' %}"> Faça login aqui!</a></p>
+    </section>
+  </body>
+  <script src="{% static 'js/registerform.js' %}"></script>
+</html>

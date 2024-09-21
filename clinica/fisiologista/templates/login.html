@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registration Form in HTML CSS</title>
+
+    <link rel="stylesheet" href="{% static 'css/style-registro.css' %}" />
+  </head>
+  <body>
+    <section class="container">
+      <header>Login</header>
+      <form action="{% url 'login' %}" method="POST" class="form"> {% csrf_token %}
+
+        <div class="input-box">
+          <label>Nome de Usuário</label>
+          <input type="text" placeholder="Insira nome de usuário" name="username" required />
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Senha</label>
+            <input type="password" placeholder="Insira sua Senha" maxlength="25" name="senha" required />
+          </div>
+        </div>
+
+        <button type="submit" value="logar">Enviar</button>
+      </form>
+      <p id="loginredi">Não possui conta?&nbsp;<a href="{% url 'registro' %}">Cadastre-se Aqui!</a></p>
+    </section>
+  </body>
+  <script src="{% static 'js/registerform.js' %}"></script>
+</html>
