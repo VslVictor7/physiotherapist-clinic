@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <a id="unama">
+                <img src="{% static 'images/unama_n.png' %}" alt="">
+            </a>
+            <div id="profileu" class="profile-info">
+                <img id="prof" src="{% static 'images/user.png' %}" alt="Profile Icon">
+                <a href="{% url 'fisiologista:logout' %}">Logout</a>
+            </div>
+        </div>
+        <div class="contact-info">
+            <p>Contate-nos: (91) 99999-9999 | Email: contact@clinic.com</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>{% if is_professional %}
+            {% if user.gender == 'M' %}
+                Dr. {{ user.first_name }} {{ user.last_name }}
+            {% elif user.gender == 'F' %}
+                Dra. {{ user.first_name }} {{ user.last_name }}
+            {% elif user.gender == 'O' %}
+                Dr/Dra. {{ user.first_name }} {{ user.last_name }}
+            {% endif %}
+        {% else %}
+            Paciente {{ user.first_name }} {{ user.last_name }}
+        {% endif %}</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Telefone:</strong> {{ user.phone }}</p>
+
+        <h3>Agendamentos</h3>
+        {% block form_content %}{% endblock %}
+
+    </div>
+</body>
+</html>
