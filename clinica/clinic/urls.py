@@ -17,16 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from fisiologista import views
-
+from fisiologista.views import Register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name="home"),
-    path('registro/', views.register, name="registro"),
-    path('login/', views.login, name="login"),
-    path('profile/', views.profile, name="profile"),
-    path('profile-professional/', views.profile_professional, name="profile-professional"),
-    path('logout/', views.Logout, name="logout"),
-    path('associar-profissional/<int:appointment_id>/', views.associar_profissional, name='associar_profissional'),
+    path('', include('fisiologista.urls')),
 
 ]
