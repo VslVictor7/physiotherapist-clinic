@@ -15,6 +15,6 @@ class User(AbstractUser):
     cpf = models.CharField(max_length=14)
     birth = models.DateField(null=True)
     adress = models.TextField(max_length=255)
-    cep = models.CharField(max_length=10)
+    cep = models.CharField(max_length=9)
 
 # Create your models here.
