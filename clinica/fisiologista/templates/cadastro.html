@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Formulário de Registro{% endblock %}
+
+{% block content %}
+<header>Formulário de Registro</header>
+<form method="post" class="form">
+  {% csrf_token %}
+
+  <div class="column"></div>
+
+    <div class="input-box">
+      <label for="{{ form.first_name.id_for_label }}">Nome</label>
+      {{ form.first_name }}
+    </div>
+
+    <div class="input-box">
+      <label for="{{ form.last_name.id_for_label }}">Sobrenome</label>
+      {{ form.last_name }}
+    </div>
+
+  </div>
+
+  <div class="input-box">
+    <label for="{{ form.username.id_for_label }}">Nome de Usuário</label>
+    {{ form.username }}
+  </div>
+
+  <div class="input-box">
+    <label for="{{ form.cpf.id_for_label }}">CPF</label>
+    {{ form.cpf }}
+  </div>
+
+  <div class="input-box">
+    <label for="{{ form.email.id_for_label }}">Email</label>
+    {{ form.email }}
+  </div>
+
+  <div class="column">
+    <div class="input-box">
+      <label for="{{ form.password1.id_for_label }}">Senha</label>
+      {{ form.password1 }}
+    </div>
+    <div class="input-box">
+      <label for="{{ form.password2.id_for_label }}">Confirme a Senha</label>
+      {{ form.password2 }}
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="input-box">
+      <label for="{{ form.phone.id_for_label }}">Número de Telefone</label>
+      {{ form.phone }}
+    </div>
+    <div class="input-box">
+      <label for="{{ form.birth.id_for_label }}">Data de Nascimento</label>
+      {{ form.birth }}
+    </div>
+  </div>
+
+  <div class="gender-box">
+    <h3>Gênero</h3>
+    <div class="gender-option">
+      {{ form.gender }}
+    </div>
+  </div>
+
+  <div class="input-box address">
+    <label for="{{ form.adress.id_for_label }}">Endereço Residencial</label>
+    <div class="column">
+      {{ form.adress }}
+      <label for="{{ form.cep.id_for_label }}"></label>
+      {{ form.cep }}
+    </div>
+
+  </div>
+
+  <button type="submit" value="signup">Enviar</button>
+
+</form>
+<p id="loginredi">Já possui conta? &nbsp;<a href="{% url 'fisiologista:login' %}"> Faça login aqui!</a></p>
+{% endblock %}

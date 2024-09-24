@@ -1,0 +1,28 @@
+{% extends 'base_profile.html' %}
+
+{% block form_content %}
+    <form action="{% url 'fisiologista:edit' pk=object.pk %}" method="POST" class="form"> {% csrf_token %}
+
+        <div class="input-box">
+            <label for="{{ form.data.id_for_label }}">Data:</label>
+            {{ form.data }}
+        </div>
+
+        <div class="input-box">
+            <label for="{{ form.time.id_for_label }}">Horário:</label>
+            {{ form.time }}
+        </div>
+
+        <div class="input-box">
+            <label for="{{ form.tipo_tratamento.id_for_label }}">Tipo de consultoria:</label>
+            {{ form.tipo_tratamento }}
+        </div>
+
+        <div class="input-box">
+            <label for="{{ form.resumo_problemas.id_for_label }}">Descrição breve do sintomas do paciente:</label>
+            {{ form.resumo_problemas }}
+        </div>
+
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}
