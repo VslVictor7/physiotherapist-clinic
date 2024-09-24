@@ -1,56 +1,33 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="{% static 'css/profile-professional.css' %}" />
-</head>
-<body>
-    {% csrf_token %}
-    <header>
-        <div class="top-bar">
-            <a id="unama">
-                <img src="{% static 'images/unama_n.png' %}" alt="">
-            </a>
-            <div class="profile-info">
-                <img id="prof" src="{% static 'images/user.png' %}">
-                <a href="{% url 'logout' %}">Logout</a>
-            </div>
-        </div>
-        <div class="contact-info">
-            <p>Contate-no: (91) 99999-9999 | Email: contact@clinic.com</p>
-        </div>
-    </header>
+{% extends 'base_profile.html' %}
 
-    <div class="container">
-        <h2>
-            {% if user.gender == 'M' %}
-                Dr. {{ user.first_name }} {{ user.last_name }}
-            {% elif user.gender == 'F' %}
-                Dra. {{ user.first_name }} {{ user.last_name }}
-            {% elif user.gender == 'O' %}
-                Dr/Dra. {{ user.first_name }} {{ user.last_name }}
-            {% endif %}
-        </h2>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Telefone:</strong> {{ user.phone }}</p>
+{% block form_content %}
+    <ul>
+        {% for appointment in appointments %}
 
-        <h3>Agendamentos</h3>
+          {% if appointment.professional is none %}
 
-        <ul>
-            {% for appointment in appointments %}
-                <li id="gap">Data: {{ appointment.data }}, Horário: {{ appointment.time }}, Motivo: {{ appointment.resumo_problemas }}
-                    <form method="POST" action="{% url 'associar_profissional' appointment.id %}"style="display: inline; margin-left: 18px;">
+            <li id="gap">
+
+                Cliente: {{ appointment.client.first_name }} {{ appointment.client.last_name }},
+                Data: {{ appointment.data }},
+                Horário: {{ appointment.time }},
+                Motivo: {{ appointment.resumo_problemas }}
+
+                <div class="form-container">
+                    <form method="POST" action="{% url 'fisiologista:associar_profissional' appointment.id %}">
                         {% csrf_token %}
                         <button id="associar" type="submit">Associar-se</button>
                     </form>
-                </li>
-            {% empty %}
-                <li>Nenhum agendamento ainda feito.</li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+                </div>
+
+            </li>
+
+          {% endif %}
+
+        {% empty %}
+            <li>Nenhum agendamento feito por um cliente no momento.</li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}
+
