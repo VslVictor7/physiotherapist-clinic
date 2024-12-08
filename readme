@@ -1,1 +1,47 @@
-teste
+## Installation
+
+1. **Clone the repository** (if you haven’t done so already):
+```bash
+   git clone <https://github.com/VslVictor7/Status-Manager-Bot.git>
+
+   cd Status-Manager-Bot
+```
+
+2. **Create a Virtual Environment** (venv):
+
+```bash
+python -m venv venv
+```
+
+3. **Activate the Virtual Environment:**:
+```bash
+source .venv/scripts/activate
+```
+
+4. **Upgrade pip**
+```bash
+python -m pip install --upgrade pip
+```
+
+5. **Install requirements.txt**
+```bash
+pip install -r requirements.txt
+```
+
+## Running the Django Project
+
+1. **Make migrations**
+```bash
+py manage.py makemigrations
+```
+
+2. **Migrate the tables**
+
+```bash
+py manage.py migrate
+```
+
+3. **Run the Django Server:**
+```bash
+py manage.py runserver
+```
